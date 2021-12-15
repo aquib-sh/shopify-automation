@@ -44,7 +44,10 @@ class BotOptions:
             Path of the browser profile to use
         """
         opts = webdriver.ChromeOptions()
+        ucopts = uc.ChromeOptions()
+
         opts.headless = behead
+        ucopts.headless = behead
         
         if profile_path:
             opts.add_argument(f"user-data-dir={profile_path}")
@@ -59,7 +62,7 @@ class BotOptions:
 
         if sys.platform == "win32":
             dpath = os.path.abspath(dpath) + ".exe"
-        if undetected : return uc.Chrome(options=opts, executable_path=dpath)
+        if undetected : return uc.Chrome(options=ucopts, executable_path=dpath)
         return webdriver.Chrome(options=opts, executable_path=dpath, desired_capabilities=capa)
 
     def setup_firefox(self, driver_path, behead, proxy_info: dict=None, firefox_profile: str=None):
